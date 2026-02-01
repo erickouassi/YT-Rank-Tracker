@@ -1,0 +1,32 @@
+{
+    "name": "YouTube Rank Tracker",
+    "short_name": "YT Rank",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#0f172a",
+    "scope": "/",
+    "orientation": "any",
+    "description": "A fast, creator-focused analytics tool that ranks all YouTube videos and Shorts by views, tracks rank movement, shows channel growth, and provides a clean dashboard for creators who want clarity and motivation.",
+    "categories": ["Productivity", "Analytics", "Tools", "Video"],
+    "icons": [
+        {
+            "src": "./img/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "./img/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "./img/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
