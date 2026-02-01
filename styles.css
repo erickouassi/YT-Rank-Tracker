@@ -252,6 +252,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8rem;
+  table-layout: fixed;
 }
 
 thead {
@@ -262,7 +263,7 @@ thead {
 }
 
 th, td {
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
 }
@@ -282,23 +283,26 @@ th, td {
   opacity: 0.7;
 }
 
+/* Thumbnail refinement */
 .thumb {
-  width: 60px;
-  height: 34px;
-  border-radius: 6px;
+  width: 80px;
+  height: 45px;
+  border-radius: 8px;
   background-size: cover;
   background-position: center;
   border: 1px solid var(--border);
 }
 
+/* Title cell layout */
 .title-cell {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .title-main {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.2;
 }
 
 .title-meta {
@@ -306,6 +310,7 @@ th, td {
   color: var(--text-muted);
 }
 
+/* Chips */
 .chip {
   padding: 2px 6px;
   border-radius: 999px;
@@ -326,6 +331,7 @@ th, td {
   color: var(--short);
 }
 
+/* Rank movement */
 .rank-up {
   color: var(--accent);
   font-weight: 600;
@@ -340,6 +346,7 @@ th, td {
   color: var(--accent-neutral);
 }
 
+/* FOOTER */
 .footer-note-row {
   display: flex;
   justify-content: space-between;
@@ -447,28 +454,52 @@ th, td {
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-  .app-header {
+@media (max-width: 600px) {
+
+  th, td {
+    padding: 8px;
+  }
+
+  .thumb {
+    width: 70px;
+    height: 40px;
+  }
+
+  .title-cell {
     flex-direction: column;
     align-items: flex-start;
+    gap: 4px;
   }
 
-  .channel-summary {
-    flex-direction: column;
+  .title-main {
+    font-size: 0.85rem;
   }
 
-  .channel-metrics {
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  .title-meta {
+    font-size: 0.7rem;
   }
 
-  .top-video {
-    flex-direction: column;
-  }
-
-  thead th:nth-child(5),
-  thead th:nth-child(6),
-  tbody td:nth-child(5),
-  tbody td:nth-child(6) {
+  /* Hide Published + Duration */
+  th:nth-child(5),
+  th:nth-child(6),
+  td:nth-child(5),
+  td:nth-child(6) {
     display: none;
+  }
+
+  /* Views + Rank emphasis */
+  td:nth-child(3),
+  td:nth-child(4) {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  td {
+    word-wrap: break-word;
   }
 }
