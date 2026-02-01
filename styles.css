@@ -81,74 +81,84 @@ body {
   background: transparent;
 }
 
-/* CHANNEL SUMMARY */
+/* CHANNEL SUMMARY — CLEAN, PROFESSIONAL */
 .channel-summary {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  padding: 14px;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 20px;
   background: var(--bg-soft);
   border-radius: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
 }
 
 .channel-left {
   display: flex;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
 }
 
 .channel-icon {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   border: 2px solid var(--border);
+  flex-shrink: 0;
 }
 
 #channelName {
-  font-size: 1.2rem;
-  margin-bottom: 2px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 #channelHandle {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
+  margin-bottom: 6px;
 }
 
 .channel-description {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
-  margin-top: 4px;
+  line-height: 1.4;
   max-width: 420px;
+  word-break: break-word;
 }
 
-/* METRICS */
 .channel-metrics {
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 14px;
+  flex-shrink: 0;
 }
 
 .metric {
   background: var(--bg-card);
   border-radius: 10px;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
 }
 
 .metric-label {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
 .metric-value {
-  font-size: 1.1rem;
-  font-weight: 600;
-  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2px;
 }
 
 .metric-sub {
   font-size: 0.75rem;
   color: var(--text-muted);
+  margin-top: 2px;
 }
 
 /* TOP VIDEO */
@@ -292,7 +302,7 @@ th:nth-child(6), td:nth-child(6) {
   opacity: 0.7;
 }
 
-/* THUMBNAIL + TITLE (PROFESSIONAL LAYOUT) */
+/* THUMBNAIL + TITLE — PROFESSIONAL LAYOUT */
 .title-cell {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -471,10 +481,21 @@ th:nth-child(6), td:nth-child(6) {
 }
 
 /* RESPONSIVE */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-  th, td {
-    padding: 8px;
+  .channel-summary {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .channel-left {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .channel-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
   }
 
   .title-cell {
@@ -486,15 +507,6 @@ th:nth-child(6), td:nth-child(6) {
     width: 100%;
   }
 
-  .title-main {
-    font-size: 0.85rem;
-  }
-
-  .title-meta {
-    font-size: 0.7rem;
-  }
-
-  /* Hide Published + Duration */
   th:nth-child(5),
   th:nth-child(6),
   td:nth-child(5),
@@ -502,7 +514,6 @@ th:nth-child(6), td:nth-child(6) {
     display: none;
   }
 
-  /* Views + Rank emphasis */
   td:nth-child(3),
   td:nth-child(4) {
     font-size: 0.85rem;
@@ -516,23 +527,5 @@ th:nth-child(6), td:nth-child(6) {
 
   td {
     word-wrap: break-word;
-  }
-}
-.screen-warning {
-  display: none;
-  background: #facc15;
-  color: #1f2937;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* Show only on small screens */
-@media (max-width: 700px) {
-  .screen-warning {
-    display: block;
   }
 }
