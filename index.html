@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>YouTube Rank Tracker</title>
 
   <!-- PWA -->
@@ -12,9 +11,11 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
-
 </head>
 <body class="theme-dark">
+  <div id="screenWarning" class="screen-warning">
+  📺 For the best experience, view this dashboard on a larger screen.
+</div>
 
   <div class="app">
 
@@ -34,7 +35,7 @@
     <!-- CHANNEL SUMMARY -->
     <section class="channel-summary">
       <div class="channel-left">
-        <img id="channelIcon" class="channel-icon" />
+        <img id="channelIcon" class="channel-icon" alt="Channel icon" />
         <div>
           <h2 id="channelName"></h2>
           <p id="channelHandle"></p>
@@ -48,19 +49,16 @@
           <span class="metric-value" id="subsCount">0</span>
           <span class="metric-sub" id="subsGrowth">–</span>
         </div>
-
         <div class="metric">
           <span class="metric-label">Total views</span>
           <span class="metric-value" id="viewsCount">0</span>
           <span class="metric-sub" id="viewsGrowth">–</span>
         </div>
-
         <div class="metric">
           <span class="metric-label">Total likes</span>
           <span class="metric-value" id="likesCount">0</span>
           <span class="metric-sub" id="likesGrowth">–</span>
         </div>
-
         <div class="metric">
           <span class="metric-label">Avg views / video</span>
           <span class="metric-value" id="avgViewsCount">0</span>
@@ -80,47 +78,48 @@
     </section>
 
     <!-- TABLE SECTION -->
-    <section class="table-section">
+    <!-- TABLE SECTION -->
+<section class="table-section">
 
-      <div class="table-header-row">
-        <div class="filters">
-          <button class="filter-btn active" data-type="all">📺 All</button>
-          <button class="filter-btn" data-type="video">🎬 Videos</button>
-          <button class="filter-btn" data-type="short">📱 Shorts</button>
-        </div>
+  <div class="table-header-row">
+    <div class="filters">
+      <button class="filter-btn active" data-type="all">📺 All</button>
+      <button class="filter-btn" data-type="video">🎬 Videos</button>
+      <button class="filter-btn" data-type="short">📱 Shorts</button>
+    </div>
 
-        <div class="legend">
-          <span class="legend-item"><span class="dot dot-video"></span>Video</span>
-          <span class="legend-item"><span class="dot dot-short"></span>Short</span>
-          <span class="legend-item"><span class="dot dot-up"></span>Up</span>
-          <span class="legend-item"><span class="dot dot-down"></span>Down</span>
-          <span class="legend-item"><span class="dot dot-same"></span>Same</span>
-        </div>
-      </div>
+    <div class="legend">
+      <span class="legend-item"><span class="dot dot-video"></span>Video</span>
+      <span class="legend-item"><span class="dot dot-short"></span>Short</span>
+      <span class="legend-item"><span class="dot dot-up"></span>Up</span>
+      <span class="legend-item"><span class="dot dot-down"></span>Down</span>
+      <span class="legend-item"><span class="dot dot-same"></span>Same</span>
+    </div>
+  </div>
 
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th class="sortable" data-sort="views">Views</th>
-              <th class="sortable" data-sort="movement">Rank</th>
-              <th class="sortable" data-sort="published">Published</th>
-              <th class="sortable" data-sort="duration">Duration</th>
-            </tr>
-          </thead>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th class="sortable" data-sort="views">Views</th>
+          <th class="sortable" data-sort="movement">Rank</th>
+          <th class="sortable" data-sort="published">Published</th>
+          <th class="sortable" data-sort="duration">Duration</th>
+        </tr>
+      </thead>
 
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
 
-      <div class="footer-note-row">
-        <p class="footer-note" id="countInfo"></p>
-        <button id="resetBtn" class="reset-btn">Reset</button>
-      </div>
+  <div class="footer-note-row">
+    <p class="footer-note" id="countInfo"></p>
+    <button id="resetBtn" class="reset-btn">Reset</button>
+  </div>
 
-    </section>
+</section>
 
   </div>
 
@@ -130,11 +129,25 @@
   <!-- MAIN SCRIPT -->
   <script type="module" src="app.js"></script>
 
-  <!-- REGISTER SERVICE WORKER -->
+  <!-- SERVICE WORKER -->
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js");
+      navigator.serviceWorker.register("/sw.js").catch(err => console.log("SW registration failed:", err));
     }
+  </script>
+  <script>
+    function checkScreenSize() {
+  const warning = document.getElementById("screenWarning");
+  if (window.innerWidth < 700) {
+    warning.style.display = "block";
+  } else {
+    warning.style.display = "none";
+  }
+}
+
+window.addEventListener("resize", checkScreenSize);
+window.addEventListener("load", checkScreenSize);
+
   </script>
 
 </body>

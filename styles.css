@@ -164,7 +164,7 @@ body {
 
 .top-video-thumb {
   width: 160px;
-  height: 90px;
+  aspect-ratio: 16 / 9;
   border-radius: 10px;
   background-size: cover;
   background-position: center;
@@ -252,7 +252,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8rem;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 thead {
@@ -266,8 +266,17 @@ th, td {
   padding: 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
+  vertical-align: top;
 }
 
+th:nth-child(3), td:nth-child(3),
+th:nth-child(4), td:nth-child(4),
+th:nth-child(5), td:nth-child(5),
+th:nth-child(6), td:nth-child(6) {
+  white-space: nowrap;
+}
+
+/* SORTING */
 .sortable {
   cursor: pointer;
   user-select: none;
@@ -283,31 +292,39 @@ th, td {
   opacity: 0.7;
 }
 
-/* Thumbnail refinement */
+/* THUMBNAIL + TITLE (PROFESSIONAL LAYOUT) */
+.title-cell {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  word-break: break-word;
+  min-width: 0;
+}
+
 .thumb {
-  width: 80px;
-  height: 45px;
+  width: 100px;
+  aspect-ratio: 16 / 9;
   border-radius: 8px;
   background-size: cover;
   background-position: center;
   border: 1px solid var(--border);
-}
-
-/* Title cell layout */
-.title-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-shrink: 0;
 }
 
 .title-main {
   font-size: 0.85rem;
-  line-height: 1.2;
+  font-weight: 500;
+  margin-bottom: 4px;
+  line-height: 1.3;
 }
 
 .title-meta {
   font-size: 0.7rem;
   color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* Chips */
@@ -389,8 +406,8 @@ th, td {
 }
 
 .skel-thumb {
-  width: 60px;
-  height: 34px;
+  width: 100px;
+  aspect-ratio: 16 / 9;
 }
 
 .skel-title {
@@ -460,15 +477,13 @@ th, td {
     padding: 8px;
   }
 
-  .thumb {
-    width: 70px;
-    height: 40px;
+  .title-cell {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
-  .title-cell {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+  .thumb {
+    width: 100%;
   }
 
   .title-main {
@@ -495,11 +510,29 @@ th, td {
   }
 
   table {
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
   }
 
   td {
     word-wrap: break-word;
+  }
+}
+.screen-warning {
+  display: none;
+  background: #facc15;
+  color: #1f2937;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Show only on small screens */
+@media (max-width: 700px) {
+  .screen-warning {
+    display: block;
   }
 }
