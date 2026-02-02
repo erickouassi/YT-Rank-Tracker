@@ -73,8 +73,9 @@ export function renderChannelSummary(info, videos, prevSnapshot) {
   if (prevSnapshot?.timestamp) {
     const last = new Date(prevSnapshot.timestamp);
     const hours = Math.round((Date.now() - last.getTime()) / 3600000);
-    lastTimeStr = hours < 48 ? `Last snapshot: ${hours} hour${hours === 1 ? '' : 's'} ago`
-                             : `Last: ${last.toLocaleDateString()}`;
+    lastTimeStr = hours < 48 
+      ? `Last snapshot: ${hours} hour${hours === 1 ? '' : 's'} ago`
+      : `Last: ${last.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
 
     subsDelta  = info.subscribers - (prevSnapshot.lastSubscribers  ?? 0);
     viewsDelta = info.totalViews    - (prevSnapshot.lastTotalViews   ?? 0);
@@ -86,6 +87,11 @@ export function renderChannelSummary(info, videos, prevSnapshot) {
   likesEl.textContent = likesDelta !== null ? growthLabel(likesDelta, "likes") : "First snapshot";
 
   const engagement = info.totalViews ? (totalLikes / info.totalViews * 100).toFixed(2) : 0;
+  
+  // ───────────────────────────────────────────────
+  // Updated: removed redundant "Refreshed: ..." part
+  // Now clean: Engagement + snapshot age only
+  // ───────────────────────────────────────────────
   engageEl.textContent = `Engagement: ${engagement}% • ${lastTimeStr}`;
 }
 
@@ -131,10 +137,9 @@ export function renderTable(reset = false) {
         ${rankEmoji(v.rankChange)} ${rankLabel(v.rankChange)}
         ${v.viewsDelta > 0 ? `<br><small>+${formatViews(v.viewsDelta)} today</small>` : ""}
       </td>
-      <!--<td>${formatDate(v.publishedAt)}</td>-->
       <td title="${new Date(v.publishedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}">
-  ${relativeTime(v.publishedAt)}
-</td>
+        ${relativeTime(v.publishedAt)}
+      </td>
       <td>${formatDuration(v.duration)}</td>
     `;
     tableBody.appendChild(tr);
