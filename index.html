@@ -1,48 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>YouTube Rank Tracker</title>
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0f172a" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
 </head>
 <body class="theme-dark">
-  <div id="screenWarning" class="screen-warning">
-  📺 For the best experience, view this dashboard on a larger screen.
-</div>
-
   <div class="app">
-
-    <!-- HEADER -->
     <header class="app-header">
       <div>
         <h1>📊 YouTube Rank Tracker</h1>
         <p class="subtitle">Live channel overview + ranking by views with rank movement.</p>
       </div>
-
-      <div class="header-controls">
-        <button id="themeToggle" class="btn-ghost">🌙 Dark</button>
-        <button id="refreshBtn" class="btn-primary">🔁 Refresh Snapshot</button>
-      </div>
+<div class="header-controls">
+  <button id="themeToggle" class="btn-ghost">🌙 Dark</button>
+  <button id="refreshBtn" class="btn-primary">🔁 Refresh Snapshot</button>
+  <div class="refresh-info">
+    <div id="lastRefreshTime" class="refresh-time">Last: —</div>
+    <div id="refreshCount" class="refresh-count">Refreshed today: 0×</div>
+  </div>
+</div>
     </header>
 
-    <!-- CHANNEL SUMMARY -->
     <section class="channel-summary">
       <div class="channel-left">
-        <img id="channelIcon" class="channel-icon" alt="Channel icon" />
+        <img id="channelIcon" class="channel-icon" />
         <div>
           <h2 id="channelName"></h2>
           <p id="channelHandle"></p>
           <p id="channelDescription" class="channel-description"></p>
         </div>
       </div>
-
       <div class="channel-metrics">
         <div class="metric">
           <span class="metric-label">Subscribers</span>
@@ -67,7 +58,6 @@
       </div>
     </section>
 
-    <!-- TOP VIDEO -->
     <section class="top-video" id="topVideoSection">
       <div class="top-video-thumb" id="topVideoThumb"></div>
       <div class="top-video-info">
@@ -77,78 +67,48 @@
       </div>
     </section>
 
-    <!-- TABLE SECTION -->
-    <!-- TABLE SECTION -->
-<section class="table-section">
+    <section class="table-section">
+      <div class="table-header-row">
+        <div class="filters">
+          <button class="filter-btn active" data-type="all">📺 All</button>
+          <button class="filter-btn" data-type="video">🎬 Videos</button>
+          <button class="filter-btn" data-type="short">📱 Shorts</button>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><span class="dot dot-video"></span>Video</span>
+          <span class="legend-item"><span class="dot dot-short"></span>Short</span>
+          <span class="legend-item"><span class="dot dot-up"></span>Up</span>
+          <span class="legend-item"><span class="dot dot-down"></span>Down</span>
+          <span class="legend-item"><span class="dot dot-same"></span>Same</span>
+        </div>
+      </div>
 
-  <div class="table-header-row">
-    <div class="filters">
-      <button class="filter-btn active" data-type="all">📺 All</button>
-      <button class="filter-btn" data-type="video">🎬 Videos</button>
-      <button class="filter-btn" data-type="short">📱 Shorts</button>
-    </div>
+      <div class="table-wrapper table-responsive-container">
+        <table>
+<thead>
+  <tr>
+    <th class="sortable" data-sort="rank">#</th>
+    <th class="sortable" data-sort="title">Title</th>
+    <th class="sortable" data-sort="views">Views</th>
+    <th class="sortable" data-sort="movement">Rank</th>
+    <th class="sortable" data-sort="published">Published</th>
+    <th class="sortable" data-sort="duration">Duration</th>
+  </tr>
+</thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
 
-    <div class="legend">
-      <span class="legend-item"><span class="dot dot-video"></span>Video</span>
-      <span class="legend-item"><span class="dot dot-short"></span>Short</span>
-      <span class="legend-item"><span class="dot dot-up"></span>Up</span>
-      <span class="legend-item"><span class="dot dot-down"></span>Down</span>
-      <span class="legend-item"><span class="dot dot-same"></span>Same</span>
-    </div>
+      <div class="footer-note-row">
+  <p class="footer-note" id="countInfo"></p>
+  <button id="resetBtn" class="reset-btn">Reset</button>
+</div>
+
+    </section>
   </div>
 
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Title</th>
-          <th class="sortable" data-sort="views">Views</th>
-          <th class="sortable" data-sort="movement">Rank</th>
-          <th class="sortable" data-sort="published">Published</th>
-          <th class="sortable" data-sort="duration">Duration</th>
-        </tr>
-      </thead>
-
-      <tbody id="tableBody"></tbody>
-    </table>
-  </div>
-
-  <div class="footer-note-row">
-    <p class="footer-note" id="countInfo"></p>
-    <button id="resetBtn" class="reset-btn">Reset</button>
-  </div>
-
-</section>
-
-  </div>
-
-  <!-- BACK TO TOP -->
   <button id="backToTop" class="back-to-top">⬆ Top</button>
 
-  <!-- MAIN SCRIPT -->
-  <script type="module" src="app.js"></script>
-
-  <!-- SERVICE WORKER -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(err => console.log("SW registration failed:", err));
-    }
-  </script>
-  <script>
-    function checkScreenSize() {
-  const warning = document.getElementById("screenWarning");
-  if (window.innerWidth < 700) {
-    warning.style.display = "block";
-  } else {
-    warning.style.display = "none";
-  }
-}
-
-window.addEventListener("resize", checkScreenSize);
-window.addEventListener("load", checkScreenSize);
-
-  </script>
-
+  <script type="module" src="main.js"></script>
 </body>
 </html>
