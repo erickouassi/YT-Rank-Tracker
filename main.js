@@ -29,7 +29,7 @@ if (lastKnownDay !== todayNY) {
   localStorage.setItem(KEY_COUNT, '0');
   localStorage.setItem(KEY_LAST_DAY, todayNY);
 }
-
+/*
 function updateRefreshDisplay() {
   const timeEl  = document.getElementById('lastRefreshTime');
   const countEl = document.getElementById('refreshCount');
@@ -45,7 +45,31 @@ function updateRefreshDisplay() {
 
   timeEl.textContent = `Last: ${timeStr}`;
   countEl.textContent = `Refreshed today: ${refreshCount}×`;
+} */
+
+  function updateRefreshDisplay() {
+  const timeEl  = document.getElementById('lastRefreshTime');
+  const countEl = document.getElementById('refreshCount');
+  if (!timeEl || !countEl) return;
+
+  const now = new Date();
+
+  // Format: "2/2/2026 10:34 AM" (short date + short time, NY timezone)
+  const dateTimeStr = now.toLocaleString('en-US', {
+    month: 'numeric',      // 2
+    day:   'numeric',      // 2
+    year:  'numeric',      // 2026
+    hour:  'numeric',      // 10
+    minute:'2-digit',      // 34
+    hour12: true,          // AM/PM
+    timeZone: 'America/New_York'
+  });
+
+  timeEl.textContent = `Last: ${dateTimeStr}`;
+  countEl.textContent = `Refreshed today: ${refreshCount}×`;
 }
+
+
 
 // ───────────────────────────────────────────────
 // Main load function
