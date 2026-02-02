@@ -61,9 +61,17 @@ async function loadTracker() {
     const videoIds      = await getAllVideoIds(playlistId);
     const videos        = await getVideoStats(videoIds);
 
-    const ranked = [...videos]
-      .sort((a,b) => b.views - a.views)
-      .map((v,i) => ({ ...v, currentRank: i+1 }));
+const ranked = [...videos]
+  .sort((a, b) => {
+    // Primary: highest views first
+    if (a.views !== b.views) {
+      return b.views - a.views;
+    }
+    
+    // Secondary: when views are equal (incl. both 0), newest published first
+    return new Date(b.publishedAt) - new Date(a.publishedAt);
+  })
+  .map((v, i) => ({ ...v, currentRank: i + 1 }));
 
     const withMovement = ranked.map(v => {
       const prev = prevSnapshot?.videos?.find(p => p.id === v.id);
